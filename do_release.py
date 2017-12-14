@@ -19,7 +19,13 @@ def create_release(log, release_number):
     release_tag = "release_{}".format(release_number)
 
     for repo_name in config.ras_repositories:
-        log.info("\tTagging repository {} with {}.".format(repo_name, release_tag))
+        log.info("\tTagging RAS repository {} with {}.".format(repo_name, release_tag))
+        repo = org.get_repo(repo_name)
+        repo.create_git_release(release_tag, "Release {}".format(release_number), "Release tag created by ras_tools")
+        log.info("\tOk, tagged {}".format(repo_name))
+
+    for repo_name in config.rm_repositories:
+        log.info("\tTagging RM repository {} with {}.".format(repo_name, release_tag))
         repo = org.get_repo(repo_name)
         repo.create_git_release(release_tag, "Release {}".format(release_number), "Release tag created by ras_tools")
         log.info("\tOk, tagged {}".format(repo_name))
@@ -28,7 +34,7 @@ def create_release(log, release_number):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description="Create a full release of the RAS micro-services.")
+    parser = argparse.ArgumentParser(description="Create a full release of the RAS/RM micro-services.")
 
     parser.add_argument('-n', '--number',
                         metavar='<release_number>',
@@ -44,6 +50,8 @@ if __name__ == '__main__':
     log.addHandler(stdout_handler)
     log.setLevel(config.loglevel)
 
-    log.info("Starting release process, there are {} repositories to tag.".format(len(config.ras_repositories)))
+    log.info("Starting release process..."
+    log.info("There are {} RAS repositories to tag.".format(len(config.ras_repositories)))
+    log.info("There are {} RM repositories to tag.".format(len(config.rm_repositories)))
     create_release(log, args.number)
     log.info("Release process has been succesfully completed.")
