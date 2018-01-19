@@ -10,7 +10,8 @@ ras_repositories = [
     'ras-rabbit-adaptor-service',
     'ras-collection-instrument',
     'ras-maintenance-page',
-    'django-oauth2-test'
+    'django-oauth2-test',
+    'response-operations-ui'
 ]
 
 rm_repositories = [
@@ -36,7 +37,8 @@ rm_repositories = [
     'rm-samplesvc-api',
     'rm-collectionexercisesvc-api',
     'rm-surveysvc-api',
-    'rm-collectioninstrumentsvc-api'
+    'rm-collectioninstrumentsvc-api',
+    'rm-comms-template-service'
 ]
 
 github_access_token = '341aa1241a41343d141v34134134'
